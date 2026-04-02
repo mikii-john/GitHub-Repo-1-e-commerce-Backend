@@ -40,6 +40,7 @@ const orderSchema = mongoose.Schema(
         'Delivered',
         'Completed',
         'Cancelled',
+        'Disputed',
       ],
       default: 'Pending',
     },

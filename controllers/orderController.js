@@ -143,10 +143,27 @@ const confirmDelivery = async (req, res) => {
   }
 };
 
+// @desc    Get all orders for admin and staff
+// @route   GET /api/orders
+// @access  Private/Admin/Staff
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .populate('product_id', 'name price image')
+      .populate('buyer_id', 'name email')
+      .populate('seller_id', 'name email');
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   createOrder,
   getBuyerOrders,
   getSellerOrders,
+  getAllOrders,
   confirmDelivery,
   shipOrder,
 };

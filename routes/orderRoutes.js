@@ -4,10 +4,15 @@ const {
   createOrder,
   getBuyerOrders,
   getSellerOrders,
+  getAllOrders,
   confirmDelivery,
   shipOrder,
 } = require('../controllers/orderController');
 const { protect, authorize } = require('../middleware/authMiddleware');
+
+// @route   GET /api/orders
+// @access  Private/Admin/Staff
+router.get('/', protect, authorize('admin', 'staff'), getAllOrders);
 
 // @route   POST /api/orders
 // @access  Private/Buyer
